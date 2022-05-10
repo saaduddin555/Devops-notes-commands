@@ -106,7 +106,7 @@ rclone
 shred 
 srm
 systemctl
-
+.......................................................................................................................................
 # Storage/Ram/Disk
 
 top             (Gets process info cpu, memory, utilization, root, all configuration details)
@@ -125,6 +125,50 @@ ls hw                    (gets all harware information)
 ls usb                   (To see all usb info if mounted)
 free                     (To check ram memory usage/free/shared/available)
 uname -a 
+
+### Volumes: we can create volumes and attach those volumes u the existing Instances.
+The disks wiil be in the form of Raw fomat hence, need to format the disk 
+#lsblk in linux to access the disks
+raw>>>partition>>>filesystem>>>>mount
+fdisk /dev/xvdf
+n for new partion, press enter 4 times
+w for format the partion, The new partion is created.
+
+mkfs.ext4 /dev/xvdf1            (To create file System in Linux)
+mkdir /datavol1                 (to create a folder)
+lsblk                           (To access disk info)
+mount /dev/xvdf1 /datavol1/     (To mount a volume)
+df -h                           (To check volumes and partition information)
+
+always add disk details in etc/fstab tab to fix the disk permanently to os or else reboot will erase the details.
+
+nano /etc/fstab
+edit the file and add new disk config
+
+/dev/xvdf1         /datavol1/       ext4        defaults,noatime    1   1
+
+and save the file
+
+df -h                       (To check volumes and partition information)
+mount -a                    ( to Mount a volume agian)
+cd datavol1
+
+Now You can create a new file.
+
+#### TO increase partition for existing drive where drive is unallocated or increased space in AWS.
+lsblk to get list of drives and names
+growpart /dev/nameofdisk                (To increase the drive capacity)
+
+growpart /dev/xvdf 1                    (here 1 indicates partition number)
+
+lsblk
+
+#### Resize file system also
+
+resize2fs /dev/xvdf1                            (To resize file system also)
+
+df-h (To check the drive details)
+..................................................................................................................................
 
 # User and Account Commands
 

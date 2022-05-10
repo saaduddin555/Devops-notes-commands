@@ -1,4 +1,4 @@
-					                                                         Git Commands Cheat sheet
+					                                    Git Commands Cheat sheet
 Git is a version control system or source code management tool
 It is where code and related files are stored
 It is used to Track the changes in files
@@ -36,6 +36,7 @@ Now if you want to Push your code to git hub
     • git push -u origin (branch-name)
 Go to git hub and check the files you pushed
 
+
 ##### Setting up git
 $ git config --global user.name "User Name"
 $ git config --global user.email "email"
@@ -50,10 +51,10 @@ Git Config:
          --global 
          --system
          --local
-Commands are: git config -- global       (gets all global information)
+Commands are: git config --global       (gets all global information)
               git config --global -e     (gets user name and Information)
 
-Define or change username on git         (git config-- global user.name "xyz555")
+Define or change username on git         (git config --global user.name "xyz555")
 
 can replace or create user with email    (git config --global user.email "xyz@gmail.com")
 
@@ -109,29 +110,28 @@ $ git commit -am 'insert commit message'
 
 # Amending a commit
 $ git commit --amend 'new commit message' or no message to maintain previous message
-
-
-
-
+``````````````
+```
+.................................................................................................................................................
 Git branches:
                       A branch represents the independent line of development. The git branch commands lets you create, list, rename and delete the branches. The default name in Git is Master and in Git hub its is Main
 
-    • To see the current branch  		: git branch
-    • To add new branch            		: git branch branch -name
-    • to switch branches             	: git checkout branch-name
-    • To create and switch at a time 	: git checkout -b branch-name
+    • To see the current branch  		: git branch -a
+    • To add new branch            		: git branch branch_name
+    • to switch branches             	: git checkout branch_name
+    • To create and switch at a time 	: git checkout -b branch_name
     • To rename a branch 			    : git branch -m old new
-    • To clone a specific branch 		: git clobe -b branch-name repo-URL
+    • To clone a specific branch 		: git clone -b branch_name repo-URL
     • TO delete a branch 			    : git branch -d <branch>
 The -d option will delete the branch only if it is already been pushed and merged with the remote branch. Use -D instead if you want to force the branch to be deleted, even if it hasn’t been pushed or merged yet. The branch is now deleted locally.
+```
 
-
-#### Branching and merging
+#### Branching
 # Creating a local branch
 $ git checkout -b branchname
 
 # Switching between 2 branches (in fact, this would work on terminal as well to switch between 2 directories - $ cd -)
-$ git checkout -
+$ git checkout 
 
 # Pushing local branch to remote
 $ git push -u origin branchname
@@ -166,26 +166,12 @@ $ git rebase origin/master
 # Pushing local branch after rebasing master into local branch
 $ git push origin +branchname
 ```
-
+..................................................................................................................................................
 #### Git Merge:
-                   If you want to merge branch-1 with branch-2 switch to branch-1 first and give command 
+                   If you want to merge branch-1 with branch-2 switch to branch-1(Master branch) first and give command 
     • git merge branch-2
 No that command had merged the content of branch-1 and branch-2 
 what ever the content is in branch-1 is now seen is branch-2 now
-
-
-
-#### Fetching and checking out remote branches
-# This will fetch all the remote branches for you.
-$ git fetch origin
-
-# With the remote branches in hand, you now need to check out the branch you are interested in, giving you a local working copy:
-$ git checkout -b test origin/test
-
-# Deleting a remote branch
-$ git branch -rd origin/branchname
-$ git push origin --delete branchname  or  $ git push origin:branchname
-```
 
 #### Merging branch to trunk/master
 # First checkout trunk/master
@@ -196,16 +182,39 @@ $ git merge branchname
 
 # To cancel a merge
 $ git merge --abort
-```
+
+...................................................................................................................................................
+#### Fetching and checking out remote branches (Origin) 
+Origin: Default name of server/url is called as Origin
+        Just give Origin instead of giving whole Url
+
+# This will fetch all the remote branches for you.
+$ git fetch origin
+
+# With the remote branches in hand, you now need to check out the branch you are interested in, giving you a local working copy:
+$ git checkout -b test origin/test
+
+# Deleting a remote branch
+$ git branch -rd origin/branchname
+$ git push origin --delete branchname  or  $ git push origin:branchname
 
 #### Updating a local repository with changes from a Github repository
 $ git pull origin master
-```
+
 
 #### Tracking existing branch
 $ git branch --set-upstream-to=origin/foo foo
-```
 
+To Push to Origin master
+git push --set-upstream origin master
+
+git push origin master/main
+
+git remote add origin name_of_url     (To add remote repo of Origin)
+
+git branch -M main
+git push -u origin main
+..................................................................................................................................................
 #### Resetting
 # Mixes your head with a give sha
 # This lets you do things like split a commit
@@ -225,7 +234,8 @@ $ git reset --hard sha
 
 # Reset the staging area and the working directory to match the most recent commit. In addition to unstaging changes, the --hard flag tells Git to overwrite all changes in the working directory, too.
 $ git reset --hard
-```
+
+...................................................................................................................................................
 
 #### Git remote
 # Show where 'origin' is pointing to and also tracked branches
@@ -245,7 +255,7 @@ $ git remote add [NAME] https://github.com/user/fork-repo.git
 ###### Git Fork:
 	    A fork is rough copy of a repository. Forking a repositoy allows you to freely test and debug with changes without affecting the original project.
 
-
+...................................................................................................................................................
 #### Stashing files
 Git stash is a very useful command, where git will 'hide' the changes on a dirty directory - but no worries you can re-apply them later. The command will save your local changes away and revert the working directory to match the HEAD commit.
 # Stash local changes
@@ -277,7 +287,7 @@ $ git stash show
 
 # See diff details of a given stash number
 $ git diff stash@{0}
-```
+...................................................................................................................................................
 
 # Squashing commits together
 $ git rebase -i
@@ -294,8 +304,7 @@ This will give you an interface on your core editor:
 $ git reset --soft HEAD~number_of_commits
 $ git commit
 ** WARNING: this will require force pushing commits, which is OK if this is on a branch before you push to master or create a Pull Request.
-```
-
+..................................................................................................................................................
 
 #### Git grep
 # 'Searches' for parts of strings in a directory
@@ -312,7 +321,7 @@ $ git grep -B<number of lines> 'something'
 
 # 'Searches' for parts of string and also shows lines AFTER the grepped term
 $ git grep -A<number of lines> 'something'
-```
+...................................................................................................................................................
 
 
 #### Git blame
@@ -321,10 +330,11 @@ $ git blame [filename]
 
 # Show alteration history of a file with the name of the author && SHA
 $ git blame [filename] -l
-```
 
+...................................................................................................................................................
 
-#### Git log
+#### Git log (To check History of commits)
+
 # Show a list of all commits in a repository. This command shows everything about a commit, such as commit ID, author, date and commit message.
 $ git log
 
@@ -338,16 +348,18 @@ $ git log -S 'something'
 $ git log --author 'Author Name'
 
 # Show a list of commits in a repository in a more summarised way. This shows a shorter version of the commit ID and the commit message.
-$ git log --oneline
+$ git log --oneline 
+$ git log --oneline --graph --all
+
 
 # Show a list of commits in a repository since yesterday
 $ git log --since=yesterday
 
 # Shows log by author and searching for specific term inside the commit message
 $ git log --grep "term" --author "name"
-```
 
-#### Checking what you are committing
+...................................................................................................................................................
+#### Git Diff (Checking what you are committing)
 # See all (non-staged) changes done to a local repo
 $ git diff
 
@@ -356,7 +368,7 @@ $ git diff --cached
 
 # Check what the changes between the files you've committed and the live repo
 $ git diff --stat origin/master
-```
+...................................................................................................................................................
 
 #### Useful commands
 # Check if a sha is in production
@@ -383,15 +395,19 @@ $ git cat-file sha -p
 
 # Show number of lines added and removed from a repository by an author since some time in the past.
 $ git log --author="Author name" --pretty=tformat: --numstat --since=month | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }'
-```
-
-#### Useful alias
-To add an alias simply open your .gitconfig file on your home directory and include the alias code
 
 # Shows the log in a more consisted way with the graph for branching and merging
 lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-```
-................................................................................................................................................
+
+...................................................................................................................................................
+#### Useful alias
+To add an alias simply open your .gitconfig file on your home directory and include the alias code
+
+git config --global alias.s "git status"
+
+git s (To check status as alias configured status as "s")
+
+...................................................................................................................................................
 ### Getting & Creating Projects
 
 | Command | Description |
