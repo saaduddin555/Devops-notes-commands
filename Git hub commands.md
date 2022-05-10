@@ -40,7 +40,7 @@ Go to git hub and check the files you pushed
 ##### Setting up git
 $ git config --global user.name "User Name"
 $ git config --global user.email "email"
-```
+
 ##### Applying colour to git
 $ git config --global color.ui true
 
@@ -73,17 +73,15 @@ The main tool you use to determine which files are in which state is the `$ git 
 $ git status
 # On branch master
 nothing to commit (working directory clean)
-```
 
-###If you add a new file to your project, and the file didn't exist before, when you run a `$ git status` you should see your untracked file like this:
+### If you add a new file to your project, and the file didn't exist before, when you run a `$ git status` you should see your untracked file like this:
 $ git status
 # On branch master
 # Untracked files:
-#   (use "git add <file>..." to include in what will be committed)
+# (use "git add <file>..." to include in what will be committed)
 #
-#   README
+# README
 nothing added to commit but untracked files present (use "git add" to track)
-```
 
 #### Staging files
 After initializing a git repository in the chosen directory, all files will now be tracked. Any changes made to any file will be shown after a `$ git status` as changes not staged for commit.
@@ -110,8 +108,7 @@ $ git commit -am 'insert commit message'
 
 # Amending a commit
 $ git commit --amend 'new commit message' or no message to maintain previous message
-``````````````
-```
+
 .................................................................................................................................................
 Git branches:
                       A branch represents the independent line of development. The git branch commands lets you create, list, rename and delete the branches. The default name in Git is Master and in Git hub its is Main
@@ -165,7 +162,6 @@ $ git rebase origin/master
 
 # Pushing local branch after rebasing master into local branch
 $ git push origin +branchname
-```
 ..................................................................................................................................................
 #### Git Merge:
                    If you want to merge branch-1 with branch-2 switch to branch-1(Master branch) first and give command 
