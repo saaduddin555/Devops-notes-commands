@@ -460,22 +460,224 @@ The service runs along with pod automatically and remembers the pod state
 -For service it will be selector and for Pod it will be label
 -selector= app:webapp   while  label=app:webapp
 
+# Kubernetes Most Used commands:
+kubectl get all
+kubectl apply -f filename.yaml
+kubectl describe pod Name_of_pod
+kubectl delete svc name_of_service
+kubectl delete pod name_of_pod
+kubectl delete pod --all
+kubectl delete -f
+kubectl describe replicaset webapp
+kubectl describe rs webapp
 
-# Service.yaml file
+# Rolling update and Rollout
 
-apiVersion: v1
-Kind: Service
-metadata:
-  name: fleetman-webapp
+kubectl rollout status deploy name_of_deployment               (This cmd rollout to previous version but need to change version of image in yaml file)
+kubectl rollout history deploy name_of_deployment              (This command will give details about rollout history)
 
-spec: 
- # This defines which pods are going to be represented by this service 
- # The service becomes a network endpoint for either other services
- # or maybe external users to connect to eg: browser
+(kubectl rollout undo deploy name_of_deployment --to-revision=2 (To check revision enter history cmd and to rollout give revision_no to rollback as seen in cmd)
+
+This command helps to roolout basically without editing yaml file to change image version.)
+
+kubectl rollout undo deploy webapp --to-revision=2
+
+
+# Namespaces
+kubectl get namespace
+kubectl get pod
+kubectl get po -n kube-system
+kubectl get all -n kube-system
+kubectl get all -n kube-public
+kubectl get pod -n monitoring
+kubectl get svc -n monitoring
+
+Note: if we are working in a namespace where the pods are there and aligned to it , we get result
+or 
+we get error from server, stating the pod or service is not exist
+so before 
+switch to that particular name space or give namespace in command so that the particular pod of that namespace can be fetched.
+
+kubectl describe svc kube-dns (This is dns service as in regular default namespace mode we cannot view the details)
+as Kubernetes segreegate namespaces as by default as
+System
+public 
+default 
+so if u want to use system namespace resource switch to it first or describe namespace in command.
+
+kubectl describe svc kube-dns -n kube-system  (Here -n represents namespace of that pod called kube-dns and namespace is kube-system)
+
+# How to get inside of the pod
+kubectl exec -it pod_name sh
+
+# cat /etc/resolv.conf        where all DNS configuration files exist 
+nslookup helps to look up local DNS names and give it Ip by fetching Ip from DNS service of K8S
+
+eg: nslookup www.google.com
+eg: nslookup database          (Here in k8s we have service called database configured with mysql pod and service is database hence, k8s automatically configures ip for that database service linked to that pod name my sql and all DNS enteries will be stored in k8s-DNS Pod which manages all DNS services
+
+As above to look a IP address for a DNS name Database we use command called as nslookup database as it give ip address as Mysql pod)
+
+if we want to access database from webserver
+mysql
+mysql: not found (by default mysql wont be installed in webserver)
+as hence we install client to communicate to database server
+apk add mysql-client
+After Installation of client we can run commands to connect to database server
+TO Connect to database Pod
+mysql -h database -u root -p password fleetman
+here database is refered as DNS name or else should give IP of that database to communicate, as DNS is inbulit in K8s it will recognise 
+-u referes as user as here user is as root and -p is password and password is set as password and name_of_datbase what we gave while creating a database should be given.
+
+# Workloads are also called as 
+Pods,replicas,deployment in production.
+
+
+# To debug a failure pod
+kubectl describe pod pod_name
+kubectl logs pod_name
+kubectl logs -f pod_name
+
+We can assign Environment Variables in Yaml files also, if any env variables doesnt match or wrong defined in yaml as defined in code, Pods might also crash always check same.
+The Environment can be locally deployment or Test or production level
+always check parameter before deploying an app with developer or src section in code.
+
+# persistence and Volume
+
+
+# Logs Inspection
+Log Inspection is Neccessary part of kubernetes where to find what is happening in kubernetes cluster.
+
+kubectl logs pod_name
+
+When a Pod gets restarted all of the logs present in that container will be discarded and hence we need to architect a infrastructure to capture logs for that kubernetes cluster.
+
+The logs helps us to find out the error of Kubernetes pods or cluster
+
+ELK stack is also called as elasticStack, The Stack which helps to collect,store,analyse the logs.
+The three major components of distributing loging system are: 
+
+1. Logstash or Fluentd is same as Logstash the both are same which is installed in node to pull all logs of the container
+Fluentd is has large range and support for data containers. The job of both is to collect data
+
+2. Elastic search: Elastic search is distributed and Restful search and analytics engine capable of solving a growing number of use cases, As a heart Elastic stack, it centrally stores your data so that you can discover the unexpected and uncover the the unexpected.
+
+3. Kibana: kibana allows to visualize the data such as charts, graphs and bars and get detailed analysis of logs.
+
+In AWS we have elastic search service, instead of putting any where in cluster.
+
+Elastic search shoud be replica set in clusture, atleast two nodes.as it is imp node as it fails it doesnt capture the logs and stores.
+
+Kibana can be installed in single node as it is just front end to explore
+
+we have docker images for all three.
+
+
+# Types of Services and Methods in Kubernetes
+
+Pod
+Replicaset
+Deployment
+service
+Namespaces:
+Service Account: 
+Cluster role:
+Daemon set: It is like a replica set, This deamon set know this needs to know it should be run in every node.
+cluster role binding:
+StatefulSet 
+Nodeport
+clusterip
+loadbalancer
+Request and Limits
+Horizantal Pod Autoscaling
+Readiness and Liveess prob
+Role base access control
+Jobs
+Ingress control
+
+
+# Prometheus and Grafana
+
+Cloud watch Alarams may charge in AWS for detailed monitoring hence we use Prometheus and Grafana Externally 
+It is Open source and hence it is core part of Kubernetes 
+it helps in gathering metrics in prometheus
+The graphical tool we choose is called as grafana for analytics and vsiualization.
+It is similar like ELK stack
+
+Install Prometheus and Grafana Using helm find out how to use by visiting website helm.sh or Visit github helm repo.
+
+* Prometheus-Operator is a complete monitoring solution combined with prometheus,grafana and Alerting.
+  Use prometheus chart to install the stack
+  helm install --name Monitoring stable/prometheus-operator
+
+we can edit a pod which is installed by default using Helm by command
+kubectl edit -n monitoring service/monitoring-prometheus-oper-prometheus
+
+we can change deafult editor with this command with ENV variable.
+export EDITOR=nano
+
+If you have any issues like username and password by default the helm repository contains all info and methods to work.
+
+# How to edit a pod or service Configuration by using command
   
- selector:
-   app:webapp
-      
+Kubectl edit -n monitoring (service/monitoring-prometheus-oper-prometheus)     
+
+Name of service is given which is shown in brackets, dont use brackets in real time and copy and paste the service which u woud like to edit.
+
+# Alerting
+
+# Using loadbalencer domain name we can get access to various internal pods which are in cluster ip by using proxy method.
+
+The details will differ from browser to browser 
+
+Security of end point using Authentication to access the details of load balancer
+
+Only kubernetes Admins has access to Username and password details
+
+To Find it
+
+Kubectl config view --minify
+
+You will see Autogenerated password.
+
+The result of endpoint is generated.
+
+https://Loadbalancer_domain_name/api/v1/namespaces/monitoring/services/alertmanager-operated:enter_port_number/proxy
+
+The REST interface returns json data in this Link
+
+Even if the service is not exposed still we can access it using cluster admin and password.
+
+The Internal services can be accessed using the method like eg:
+Access a web application 
+
+https://Load_balancer_domain_name_which one of service is exposed/api/v1/namespaces/default/services_fleetman_webapp:Portno/proxy
+
+If the application which is dependent up on other services might create an issue viewing it.
+
+watch dog is also called as dead man switches which created alerts to users....
+
+Deadman switch meant to ensure that the entire Alerting pipeline is functional
+
+The Alarm is sound untill the issue is resolved and comes back to normal
+
+The Deadman switch is alert which never be resolved 
+
+Insufficient members
+
+Node disk running full
+
+The Alerts can be redirected to slack channel who can monitor by using emails or txt messages
+
+# requests and Limits
+
+
+
+
+
+
+
+
 
 
 

@@ -611,18 +611,54 @@ docker node demote manager_ip_address           (to demote manager to worker)
 
 ...................................................................########################.............................................
 
+docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+docker logs container_id    (To get secret key of jenkins)
+
+To remove Docker
+
+sudo apt-get purge -y docker-engine docker docker.io docker-ce  
+sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce  
+sudo umount /var/lib/docker/
+sudo rm -rf /var/lib/docker /etc/docker
+sudo rm /etc/apparmor.d/docker
+sudo groupdel docker
+sudo rm -rf /var/run/docker.sock
+sudo rm -rf /usr/bin/docker-compose
+
+or 
+
+dpkg -l | grep -i docker
+sudo apt remove --purge docker-ce docker-ce-cli containerd.io
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
+sudo apt autoremove -y
+sudo apt autoclean
+
+or
+To remove latest verison
+sudo apt-get purge docker-ce docker-ce-cli containerd.io
+
+This commands will delete containers and images
+
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
+
+Remove Previous versions
+sudo apt-get remove docker docker-engine docker.io containerd runc
+
+You can identify the packages those files originated from with a command like dpkg-query -S $(sudo find / -name '*docker*' -print 2>/dev/null). Any such packages that you do not need, you can remove with sudo apt-get purge <package>. Please use care when you do so as some packages include some support for docker, but you might not want to remove, say, a text editor or a file manager for that reason.
+
+If some files did not originate from packages (indicated by "dpkg-query: no path found matching pattern path"), you can remove them individually. Again, please use caution, as there may be files unrelated to the docker you want to remove, which simply have the string "docker" in their names.
 
 
+jenkins Docker CI-CD in Docker S
 
+docker network create jenkins
 
+docker run --name jenkins-docker --rm --detach --privileged --network jenkins --network-alias docker --env DOCKER_TLS_CERTDIR="" --volume jenkins-docker-certs:/certs/client --volume jenkins-data:/var/jenkins_home --publish 2735:2375 --publish 2376:2376 docker:dind --storage-driver overlay2
 
+sudo docker run --name jenkins --detach --network jenkins --env DOCKER_HOST=tcp://docker:2375 --volume /home/Ironman/jenkins:/var/jenkins --volume /usr/bin/docker:/user/bin/docker --publish 8080:8080 --publish 50000:50000 --user root jenkins/jenkins:lts
 
-
-
-
-
-
-
-
+refer: https://www.jenkins.io/doc/book/installing/docker/
 
 

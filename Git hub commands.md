@@ -13,7 +13,7 @@ They can save time and developers can fetch and create pull request without swit
 Working directory:It is a stage where git is only aware of having project files in that working folder
 		        It will not track these files until we commit those files
 
-Staging area: The staging area is like rough draft space, Its where you can add the version of a file or 			multiple files that you want to save in the next commit. In other words, the next version        		of your project.
+Staging area: The staging area is like rough draft space, Its where you can add the version of a file or multiple files that you want to save in the next commit. In other words, the next version of your project.
 Repository: Repository in the git is considered as your project folder
 	        A repository contains the all the project related data
 	        It contains the collection of the files and also history of changes made of those files
@@ -51,7 +51,7 @@ Git Config:
          --global 
          --system
          --local
-Commands are: git config --global       (gets all global information)
+Commands are: git config --global        (gets all global information)
               git config --global -e     (gets user name and Information)
 
 Define or change username on git         (git config --global user.name "xyz555")
@@ -62,7 +62,7 @@ can replace or create user with email    (git config --global user.email "xyz@gm
 If you’re starting to track an existing project in Git, you need to go to the project’s directory and type:
 $ git init
 This creates a new subdirectory named .git that contains all of your necessary repository files — a Git repository skeleton. At this point, nothing in your project is tracked yet.
-To start version-controlling existing files you should start by tracking those files and do an initial commit. To accomplish that you should start with a few  `$ git add` that specifies the files you want to track followed by a commit.
+To start version-controlling existing files you should start by tracking those files and do an initial commit. To accomplish that you should start with a few  `$ git add that specifies the files you want to track followed by a commit.
 $ git add <file>
 $ git add README
 $ git commit -m 'Initial project version'

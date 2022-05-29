@@ -742,6 +742,45 @@ The /usr directory contains applications and files used by users, as opposed to 
 The /var directory is the writable counterpart to the /usr directory, which must be read-only in normal operation. Log files and everything else that would normally be written to /usr during normal operation are written to the /var directory. For example, you’ll find log files in /var/log.
 ........................................................................................................................................................................
 # Other Commands 
+Chnage_password in Linux
+$ sudo passwd -e username
+
+# List Usernames in Linux
+$ cat /etc/passwd
+$ cat /etc/passwd | awk -F: '{print $1}'
+or
+$ getent passwd | awk -F: '{print $1}'
+
+# List Groups 
+$ cat /etc/group | awk -F: '{print $1}'
+$ groups <username>
+
+# To remove an Package or Application
+sudo apt remove docker
+
+# To find a file
+sudo find / -name '*docker*'
+
+# To Completly uninstall an application
+dpkg -l | grep -i docker       To identify what installed package you have:
+
+sudo apt-get purge -y docker-engine docker docker.io docker-ce docker-ce-cli
+sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce  
+
+The above commands will not remove images, containers, volumes, or user created configuration files on your host. If you wish to delete all images, containers, and volumes run the following commands:
+
+sudo rm -rf /var/lib/docker /etc/docker
+sudo rm /etc/apparmor.d/docker
+sudo groupdel docker
+sudo rm -rf /var/run/docker.sock
+
+or
+
+sudo snap remove docker
+sudo find / -name "*docker*"
+sudo find / -name "*docker*" -exec `rm -rf` {} +
+The second part is not needed and just dangerous, at least run it without -exec `rm -rf` {} + first
+The second part could delete files that belong to different packages, e.g. /usr/share/vim/vim80/syntax/dockerfile.vim
 
 
 
