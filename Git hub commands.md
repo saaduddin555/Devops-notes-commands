@@ -463,4 +463,12 @@ git s (To check status as alias configured status as "s")
 | `git log --oneline` | View changes (briefly) |
 | `git diff [source branch] [target branch]` | Preview changes before merging |
 
+------------------------------------------------------------------------------------------------------------------------------------------
 
+yum install git -y
+git --version
+
+If you want to know how to install specific verison use github.com/git/git/releases
+copy zip link and give wget and link 
+
+The git developed in C language

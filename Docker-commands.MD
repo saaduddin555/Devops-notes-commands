@@ -650,6 +650,7 @@ You can identify the packages those files originated from with a command like dp
 
 If some files did not originate from packages (indicated by "dpkg-query: no path found matching pattern path"), you can remove them individually. Again, please use caution, as there may be files unrelated to the docker you want to remove, which simply have the string "docker" in their names.
 
+............................................................................................................................................
 
 jenkins Docker CI-CD in Docker S
 
@@ -660,5 +661,29 @@ docker run --name jenkins-docker --rm --detach --privileged --network jenkins --
 sudo docker run --name jenkins --detach --network jenkins --env DOCKER_HOST=tcp://docker:2375 --volume /home/Ironman/jenkins:/var/jenkins --volume /usr/bin/docker:/user/bin/docker --publish 8080:8080 --publish 50000:50000 --user root jenkins/jenkins:lts
 
 refer: https://www.jenkins.io/doc/book/installing/docker/
+
+.............................................................................................................................................
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

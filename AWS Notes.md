@@ -103,9 +103,9 @@ fdisk /dev/xvdf
 n for new partion, press enter 4 times
 w for format the partion, The new partion is created.
 
-mkfs.ext4 /dev/xvdf1  (To create file System in Linux)
+mkfs.ext4 /dev/xvdf1   (To create file System in Linux)
 mkdir /datavol1        (to create a folder)
-lsblk                   (To access disk info)
+lsblk                  (To access disk info)
 mount /dev/xvdf1 /datavol1/   (To mount a volume)
 df -h                         (To check volumes and partition information)
 
@@ -134,7 +134,7 @@ lsblk
 
 Resize file system also
 
-resize2fs /dev/xvdf1                            (To resize file system also)
+resize2fs /dev/xvdf1                    (To resize file system also)
 
 df-h (To check the drive details)
 
