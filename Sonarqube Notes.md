@@ -665,4 +665,48 @@ Data center edition
 
 .........................................................................................................................................................................
 
+# Sonar Cloud
+
+We are using Community editions generally,
+
+Most of projects are developed by java, pyhton, node.js these are opensource supported..
+
+sonarcloud is providing software as a service
+
+No need of servers 
+
+Just open this Url https://sonarcloud.io
+
+If we have account with github,Azure Devops, bitbucket, gitlab
+
+Click on Github and automatically it will login
+
+If we want to use sonarcloud we need to enter organisation details and PAY it 
+
+we have public and private
+
+Public is free
+
+Private is to pay
+
+Refer Sonar cloud video by Mithuntechnologies in youtube to know more..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -713,6 +713,17 @@ earlier we use to use profile concepts now a days we dont use it..........
 .....................................................................................................................................
 
 
+Other Topics:
+Packages:
+
+Java ....... jar/war/ear
+.Net ....... .exe
+Node.Js .........No packages
+Python ..........No packages
+
+pom.xml we have many dependencies
+package.json ........have many node modules
+
 
 
 
